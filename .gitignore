@@ -1,0 +1,18 @@
+# Biên dịch Maven
+target/
+*.class
+
+# File cấu hình riêng của NetBeans (BẮT BUỘC bỏ qua)
+**/nbproject/private/
+build/
+dist/
+
+# Cấu hình IDE khác (nếu thành viên mở bằng IntelliJ / VS Code)
+.idea/
+*.iml
+.vscode/
+
+# File hệ thống
+.DS_Store
+Thumbs.db
+*.log
