@@ -1,0 +1,34 @@
+name: Branch Discord Notification
+
+on:
+  push:
+    branches:
+      - '**' # Lắng nghe tất cả các nhánh
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Notification to specific branch channel
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          WEBHOOK_URL=""
+
+          # Phân luồng nhánh tương ứng với Webhook
+          if [[ "$BRANCH_NAME" == "feature/expense"* ]]; then
+            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_EXPENSE }}"
+          elif [[ "$BRANCH_NAME" == "feature/income"* ]]; then
+            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_INCOME }}"
+          elif [[ "$BRANCH_NAME" == "feature/transaction"* ]]; then
+            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_TRANSACTION }}"
+          elif [[ "$BRANCH_NAME" == "feature/investment"* ]]; then
+            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_INVESTMENT }}"
+          elif [[ "$BRANCH_NAME" == "main" ]]; then
+            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_MAIN }}"
+          fi
+
+          # Nếu tìm thấy webhook thì gửi tin nhắn sang Discord
+          if [ -n "$WEBHOOK_URL" ]; then
+            MESSAGE="🚀 **[$BRANCH_NAME]** có commit mới từ **${{ github.actor }}**:\n📝 *${{ github.event.head_commit.message }}*\n🔗 [Xem thay đổi](${{ github.event.head_commit.url }})"
+            curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"$MESSAGE\"}" "$WEBHOOK_URL"
+          fi
