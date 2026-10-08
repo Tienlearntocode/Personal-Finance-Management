@@ -5,7 +5,7 @@ Dự án môn học Lập trình Java Swing - Quản lý chi tiêu cá nhân.
 ---
 
 ## 1. Yêu cầu môi trường
-* **JDK:** Java 17 hoặc Java 21 LTS
+* **JDK:** Java 17 hoặc Java 21 LTS.
 * **IDE:** Apache NetBeans (Maven Project)
 * **Database:** MySQL Server 8.0 (Port mặc định: 3306)
 
