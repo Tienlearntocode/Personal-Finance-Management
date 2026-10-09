@@ -1,4 +1,4 @@
-name: Branch Discord Notification
+22222222222222222222222222222222222222222222222222222name: Branch Discord Notification
 
 on:
   push:
@@ -16,15 +16,15 @@ jobs:
 
           # Phân luồng nhánh tương ứng với Webhook
           if [[ "$BRANCH_NAME" == "feature/expense"* ]]; then
-            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_EXPENSE }}"
+            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_EXPENSE_TV2 }}"
           elif [[ "$BRANCH_NAME" == "feature/income"* ]]; then
-            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_INCOME }}"
+            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_INCOME_TV3 }}"
           elif [[ "$BRANCH_NAME" == "feature/transaction"* ]]; then
-            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_TRANSACTION }}"
+            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_TRANSACTION_TV4 }}"
           elif [[ "$BRANCH_NAME" == "feature/investment"* ]]; then
-            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_INVESTMENT }}"
+            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_INVESTMENT_TV5 }}"
           elif [[ "$BRANCH_NAME" == "main" ]]; then
-            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_MAIN }}"
+            WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_MAIN_TN }}"
           fi
 
           # Nếu tìm thấy webhook thì gửi tin nhắn sang Discord
