@@ -4,10 +4,11 @@
  */
 package per.finance.view;
 
-/**
- *
- * @author haphong
- */
-public class ExpensePanel {
-    
+import javax.swing.JPanel;
+
+public class ExpensePanel extends JPanel {
+
+    public ExpensePanel() {
+        // Constructor để trống hoặc khởi tạo giao diện
+    }
 }

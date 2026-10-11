@@ -4,10 +4,11 @@
  */
 package per.finance.view;
 
-/**
- *
- * @author haphong
- */
-public class IncomePanel {
-    
+import javax.swing.JPanel;
+
+public class IncomePanel extends JPanel{
+
+    public IncomePanel() {
+        // Constructor để trống hoặc khởi tạo giao diện
+    }
 }

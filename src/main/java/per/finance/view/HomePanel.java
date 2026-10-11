@@ -4,10 +4,11 @@
  */
 package per.finance.view;
 
-/**
- *
- * @author haphong
- */
-public class HomePanel {
-    
+import javax.swing.JPanel; 
+
+public class HomePanel extends JPanel {
+
+    public HomePanel(){
+        // Constructor để trống hoặc khởi tạo giao diện
+    }
 }

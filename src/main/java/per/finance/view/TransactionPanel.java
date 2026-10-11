@@ -4,10 +4,12 @@
  */
 package per.finance.view;
 
-/**
- *
- * @author haphong
- */
-public class TransactionPanel {
-    
+import javax.swing.JPanel; 
+
+
+public class TransactionPanel extends JPanel{
+
+    public TransactionPanel() {
+        // Constructor để trống hoặc khởi tạo giao diện
+    }
 }
