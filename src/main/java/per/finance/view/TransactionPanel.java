@@ -13,3 +13,4 @@ public class TransactionPanel extends JPanel{
         // Constructor để trống hoặc khởi tạo giao diện
     }
 }
+// B.X.Sang update
