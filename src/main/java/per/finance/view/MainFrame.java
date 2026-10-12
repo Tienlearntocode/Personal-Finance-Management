@@ -77,5 +77,15 @@ public class MainFrame extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
+        try {
+        com.formdev.flatlaf.FlatLightLaf.setup();
+        } catch (Exception ex) {
+            System.err.println("Không thể khởi động FlatLaf: " + ex.getMessage());
+        }
+
+        // 2. Khởi chạy giao diện chính của chương trình
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainFrame().setVisible(true); // Thay MainFrame bằng tên Form chính của bạn
+        });
     }
 }
