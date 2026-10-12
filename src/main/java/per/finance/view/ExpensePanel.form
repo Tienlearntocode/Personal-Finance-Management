@@ -149,7 +149,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/per/finance/icons/Thi&#x1ebf;t k&#x1ebf; ch&#x1b0;a c&#xf3; t&#xea;n.png"/>
+                      <Image iconType="3" name="/per/finance/icons/iconmoney.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="TI&#x1ec0;N"/>
                   </Properties>
@@ -351,7 +351,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel5">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/per/finance/icons/Thi&#x1ebf;t k&#x1ebf; ch&#x1b0;a c&#xf3; t&#xea;n (1).png"/>
+                      <Image iconType="3" name="/per/finance/icons/iconmoney.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="&#x1ea2;NH"/>
                   </Properties>
@@ -435,7 +435,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/per/finance/icons/Thi&#x1ebf;t k&#x1ebf; ch&#x1b0;a c&#xf3; t&#xea;n.png"/>
+                      <Image iconType="3" name="/per/finance/icons/iconmoney.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="TI&#x1ec0;N"/>
                   </Properties>
@@ -458,7 +458,7 @@
             <Component class="javax.swing.JButton" name="btnUploadAnh">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/per/finance/icons/Thi&#x1ebf;t k&#x1ebf; ch&#x1b0;a c&#xf3; t&#xea;n (1).png"/>
+                  <Image iconType="3" name="/per/finance/icons/iconpicture.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="H&#xc3;Y CH&#x1ecc;N &#x1ea2;NH B&#x1ea0;N &#x110;&#xc3; MUA"/>
               </Properties>

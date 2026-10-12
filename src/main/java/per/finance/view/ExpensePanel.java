@@ -64,7 +64,7 @@ public class ExpensePanel extends javax.swing.JPanel {
 
         txtNhapTienThuCong.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "NHẬP SỐ TIỀN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 0, 51))); // NOI18N
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/Thiết kế chưa có tên.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/iconmoney.png"))); // NOI18N
         jLabel1.setText("TIỀN");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/1.png"))); // NOI18N
@@ -173,7 +173,7 @@ public class ExpensePanel extends javax.swing.JPanel {
 
         txtImagePath.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FILE ẢNH", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 0, 51))); // NOI18N
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/Thiết kế chưa có tên (1).png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/iconmoney.png"))); // NOI18N
         jLabel5.setText("ẢNH");
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/1.png"))); // NOI18N
@@ -205,7 +205,7 @@ public class ExpensePanel extends javax.swing.JPanel {
 
         txtNhapSoTienNhapAnh.setBorder(javax.swing.BorderFactory.createTitledBorder("Nhập số tiền"));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/Thiết kế chưa có tên.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/iconmoney.png"))); // NOI18N
         jLabel9.setText("TIỀN");
 
         btnSaveNhapAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/6.png"))); // NOI18N
@@ -276,7 +276,7 @@ public class ExpensePanel extends javax.swing.JPanel {
 
         panelTabNhapAnh.add(panelNhapAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 10, 590, 590));
 
-        btnUploadAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/Thiết kế chưa có tên (1).png"))); // NOI18N
+        btnUploadAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/iconpicture.png"))); // NOI18N
         btnUploadAnh.setText("HÃY CHỌN ẢNH BẠN ĐÃ MUA");
         btnUploadAnh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
