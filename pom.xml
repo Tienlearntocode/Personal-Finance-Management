@@ -11,4 +11,13 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.mycompany.personal.finance.management.PersonalFinanceManagement</exec.mainClass>
     </properties>
+    <dependencies>
+
+    <!-- Thư viện vẽ biểu đồ JFreeChart -->
+    <dependency>
+        <groupId>org.jfree</groupId>
+        <artifactId>jfreechart</artifactId>
+        <version>1.5.4</version>
+    </dependency>
+</dependencies>
 </project>
