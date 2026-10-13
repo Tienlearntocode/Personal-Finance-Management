@@ -28,6 +28,11 @@
               <artifactId>flatlaf</artifactId>
               <version>3.5.2</version>
           </dependency>
+          <dependency>
+              <groupId>org.jfree</groupId>
+              <artifactId>jfreechart</artifactId>
+              <version>1.5.4</version>
+           </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,5 +40,4 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.mycompany.personal.finance.management.PersonalFinanceManagement</exec.mainClass>
     </properties>
-    
-</project>
+
