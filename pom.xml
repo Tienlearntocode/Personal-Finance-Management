@@ -1,23 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany</groupId>
     <artifactId>Personal-Finance-Management</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE210</version>
+        </dependency>
+        <!-- Thư viện kết nối MySQL -->
+          <dependency>
+              <groupId>com.mysql</groupId>
+              <artifactId>mysql-connector-j</artifactId>
+              <version>8.3.0</version>
+          </dependency>
+
+          <!-- Thư viện giao diện FlatLaf -->
+          <dependency>
+              <groupId>com.formdev</groupId>
+              <artifactId>flatlaf</artifactId>
+              <version>3.5.2</version>
+          </dependency>
+          <dependency>
+              <groupId>org.jfree</groupId>
+              <artifactId>jfreechart</artifactId>
+              <version>1.5.4</version>
+           </dependency>
+    </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.mycompany.personal.finance.management.PersonalFinanceManagement</exec.mainClass>
     </properties>
-    <dependencies>
 
-    <!-- Thư viện vẽ biểu đồ JFreeChart -->
-    <dependency>
-        <groupId>org.jfree</groupId>
-        <artifactId>jfreechart</artifactId>
-        <version>1.5.4</version>
-    </dependency>
-</dependencies>
-</project>
