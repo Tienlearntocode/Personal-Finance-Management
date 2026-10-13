@@ -15,15 +15,7 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE210</version>
         </dependency>
-    </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <exec.mainClass>com.mycompany.personal.finance.management.PersonalFinanceManagement</exec.mainClass>
-    </properties>
-  <dependencies>
-          <!-- Thư viện kết nối MySQL -->
+        <!-- Thư viện kết nối MySQL -->
           <dependency>
               <groupId>com.mysql</groupId>
               <artifactId>mysql-connector-j</artifactId>
@@ -36,5 +28,12 @@
               <artifactId>flatlaf</artifactId>
               <version>3.5.2</version>
           </dependency>
-   </dependencies>
+    </dependencies>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <exec.mainClass>com.mycompany.personal.finance.management.PersonalFinanceManagement</exec.mainClass>
+    </properties>
+    
 </project>

@@ -1,7 +1,7 @@
 package per.finance.dao;
 
 import per.finance.model.Income;
-import per.finance.util.DBConnection;
+import per.finance.config.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ public class IncomeDAO {
     public boolean addIncome(Income income) {
         String sql = "INSERT INTO Income (source_name, amount, income_date, category_id, note) VALUES (?, ?, ?, ?, ?)";
         
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setString(1, income.getSourceName());
@@ -46,7 +46,7 @@ public class IncomeDAO {
         List<Income> list = new ArrayList<>();
         String sql = "SELECT * FROM Income";
         
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             
@@ -71,7 +71,7 @@ public class IncomeDAO {
     public boolean updateIncome(Income income) {
         String sql = "UPDATE Income SET source_name = ?, amount = ?, income_date = ?, category_id = ?, note = ? WHERE income_id = ?";
         
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setString(1, income.getSourceName());
@@ -99,7 +99,7 @@ public class IncomeDAO {
     public boolean deleteIncome(int incomeId) {
         String sql = "DELETE FROM Income WHERE income_id = ?";
         
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setInt(1, incomeId);
