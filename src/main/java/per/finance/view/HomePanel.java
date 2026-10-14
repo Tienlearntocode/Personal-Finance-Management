@@ -37,7 +37,7 @@ public class HomePanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        spnMonth = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         lblExpenseAmount = new javax.swing.JLabel();
@@ -46,7 +46,7 @@ public class HomePanel extends javax.swing.JPanel {
         tblCategory = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblIncomeAmount = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(248, 249, 250));
@@ -73,7 +73,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spnMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -83,7 +83,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
 
@@ -155,9 +155,9 @@ public class HomePanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel4.setText("Tổng thu nhập");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 153, 0));
-        jLabel5.setText("lblIncomeAmount");
+        lblIncomeAmount.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblIncomeAmount.setForeground(new java.awt.Color(0, 153, 0));
+        lblIncomeAmount.setText("lblIncomeAmount");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -167,7 +167,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(lblIncomeAmount))
                 .addContainerGap(172, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -176,7 +176,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
+                .addComponent(lblIncomeAmount)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -228,21 +228,46 @@ public class HomePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+// ==========================================
+    // GETTERS CHO HOME CONTROLLER VÀ DASHBOARD
+    // ==========================================
 
+    public javax.swing.JSpinner getSpnMonth() {
+        return spnMonth; // Trả về JSpinner chọn tháng trên giao diện
+    }
+
+    public javax.swing.JLabel getLblExpenseAmount() {
+        return lblExpenseAmount; // Trả về nhãn Tổng Chi Tiêu
+    }
+
+    public javax.swing.JLabel getLblIncomeAmount() {
+        return lblIncomeAmount; // Trả về nhãn Tổng Thu Nhập
+    }
+
+    // Nếu giao diện BẠN CHƯA CÓ các component này, trả về null để tránh lỗi crash:
+    public javax.swing.JButton getBtnRefresh() {
+        // Nếu có nút btnRefresh thì return btnRefresh; ngược lại để return null;
+        return null; 
+    }
+
+    public javax.swing.JLabel getLblNetBalance() {
+        // Nếu có nhãn lblNetBalance thì return lblNetBalance; ngược lại để return null;
+        return null; 
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lblExpenseAmount;
+    private javax.swing.JLabel lblIncomeAmount;
+    private javax.swing.JSpinner spnMonth;
     private javax.swing.JTable tblCategory;
     // End of variables declaration//GEN-END:variables
 }
