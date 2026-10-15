@@ -76,16 +76,16 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
+        // 1. Cài đặt giao diện FlatLaf trước tiên
         try {
-        com.formdev.flatlaf.FlatLightLaf.setup();
+            com.formdev.flatlaf.FlatLightLaf.setup();
         } catch (Exception ex) {
             System.err.println("Không thể khởi động FlatLaf: " + ex.getMessage());
         }
 
-        // 2. Khởi chạy giao diện chính của chương trình
+        // 2. Chỉ khởi chạy MainFrame đúng 1 lần duy nhất
         java.awt.EventQueue.invokeLater(() -> {
-            new MainFrame().setVisible(true); // Thay MainFrame bằng tên Form chính của bạn
+            new MainFrame().setVisible(true);
         });
     }
 }
