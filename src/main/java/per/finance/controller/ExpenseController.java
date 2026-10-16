@@ -37,7 +37,7 @@ public class ExpenseController {
            return "vui lòng chọn ngày";
         }
         java.sql.Date sqldate = new java.sql.Date(date.getTime());
-        Expense exp= new Expense(amount, category, note, sqldate, null);
+        Expense exp= new Expense(amount, category, note, sqldate, imagePath);
         int newid= ExpenseDAO.insert(exp);
         if(newid<=0){
             return"DỮ LIỆU KHÔNG LƯU ĐƯỢC!!!!!!!!!";

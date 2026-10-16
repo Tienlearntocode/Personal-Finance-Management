@@ -117,7 +117,7 @@ public class TransactionPanel extends JPanel {
     }
 
     private class TransactionTableModel extends AbstractTableModel {
-        private final String[] columnNames = {"ID", "Ngày", "Loại", "Danh mục", "Số tiền,"};
+        private final String[] columnNames = {"ID", "Ngày", "Loại", "Danh mục", "Ghi chú", "Số tiền", "Ảnh hóa đơn"};
         private List<Transaction> data;
 
         public TransactionTableModel(List<Transaction> data) { this.data = data; }
@@ -133,7 +133,9 @@ public class TransactionPanel extends JPanel {
                 case 1: return t.getDate();
                 case 2: return t.getType();
                 case 3: return t.getCategory();
-                case 4: return t.getAmount();
+                case 4: return t.getNote();
+                case 5: return t.getAmount();
+                case 6: return t.getImagePath() != null ? t.getImagePath() : "Không có";
                 default: return null;
             }
         }

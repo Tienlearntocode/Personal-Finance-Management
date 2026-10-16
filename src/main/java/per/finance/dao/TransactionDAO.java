@@ -8,11 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionDAO {
-    // Lấy danh sách giao dịch từ MySQL
+
     public List<Transaction> getAllTransactions() {
         List<Transaction> list = new ArrayList<>();
-        String sql = "SELECT * FROM transactions";
-        
+        // Truy vấn thêm cột note từ bảng expense
+        String sql = "SELECT id, DATE_FORMAT(expense_date, '%Y-%m-%d') AS trans_date, 'Chi tiêu' AS trans_type, category, note, amount, image_path "
+                   + "FROM expense "
+                   + "ORDER BY expense_date DESC, id DESC";
+
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -20,10 +23,12 @@ public class TransactionDAO {
             while (rs.next()) {
                 list.add(new Transaction(
                     rs.getInt("id"),
-                    rs.getString("date"),
-                    rs.getString("type"),
+                    rs.getString("trans_date"),
+                    rs.getString("trans_type"),
                     rs.getString("category"),
-                    rs.getDouble("amount")
+                    rs.getString("note") != null ? rs.getString("note") : "",
+                    rs.getDouble("amount"),
+                    rs.getString("image_path")
                 ));
             }
         } catch (SQLException e) {
@@ -32,9 +37,8 @@ public class TransactionDAO {
         return list;
     }
 
-    // Xóa giao dịch theo ID
     public boolean deleteTransaction(int id) {
-        String sql = "DELETE FROM transactions WHERE id = ?";
+        String sql = "DELETE FROM expense WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
