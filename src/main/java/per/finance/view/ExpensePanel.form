@@ -260,7 +260,7 @@
             <Container class="javax.swing.JPanel" name="panelNhapAnh">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="33" y="10" width="590" height="590"/>
+                  <AbsoluteConstraints x="40" y="0" width="530" height="590"/>
                 </Constraint>
               </Constraints>
 
@@ -268,7 +268,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="76" max="32767" attributes="0"/>
+                          <EmptySpace pref="16" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
@@ -286,11 +286,11 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jComboBoxNhapAnh" alignment="0" pref="228" max="32767" attributes="0"/>
+                                      <Component id="jComboBoxNhapAnh" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txtGhiChuNhapAnh" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtImagePath" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txtNhapSoTienNhapAnh" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="DateChooserNhapAnh" max="32767" attributes="0"/>
+                                      <Component id="DateChooserNhapAnh" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtImagePath" alignment="0" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -311,12 +311,12 @@
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBoxNhapAnh" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtGhiChuNhapAnh" alignment="3" min="-2" pref="56" max="-2" attributes="0"/>
+                          <EmptySpace pref="22" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel8" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtGhiChuNhapAnh" alignment="1" min="-2" pref="56" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel7" pref="68" max="32767" attributes="0"/>
                               <Component id="DateChooserNhapAnh" max="32767" attributes="0"/>
@@ -345,6 +345,9 @@
                           <Color PropertyName="color" blue="33" green="0" red="ff" type="rgb"/>
                         </TitledBorder>
                       </Border>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[228, 50]"/>
                     </Property>
                   </Properties>
                 </Component>

@@ -172,6 +172,7 @@ public class ExpensePanel extends javax.swing.JPanel {
         panelTabNhapAnh.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtImagePath.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FILE ẢNH", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 0, 51))); // NOI18N
+        txtImagePath.setPreferredSize(new java.awt.Dimension(228, 50));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/iconmoney.png"))); // NOI18N
         jLabel5.setText("ẢNH");
@@ -221,7 +222,7 @@ public class ExpensePanel extends javax.swing.JPanel {
         panelNhapAnhLayout.setHorizontalGroup(
             panelNhapAnhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNhapAnhLayout.createSequentialGroup()
-                .addContainerGap(76, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(panelNhapAnhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelNhapAnhLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
@@ -237,11 +238,11 @@ public class ExpensePanel extends javax.swing.JPanel {
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)
                         .addGroup(panelNhapAnhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jComboBoxNhapAnh, javax.swing.GroupLayout.Alignment.LEADING, 0, 228, Short.MAX_VALUE)
+                            .addComponent(jComboBoxNhapAnh, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtGhiChuNhapAnh, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtImagePath, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNhapSoTienNhapAnh, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DateChooserNhapAnh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(DateChooserNhapAnh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtImagePath, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(100, 100, 100))
         );
         panelNhapAnhLayout.setVerticalGroup(
@@ -255,11 +256,11 @@ public class ExpensePanel extends javax.swing.JPanel {
                 .addGroup(panelNhapAnhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jComboBoxNhapAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(panelNhapAnhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtGhiChuNhapAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(panelNhapAnhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtGhiChuNhapAnh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(panelNhapAnhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                     .addComponent(DateChooserNhapAnh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -274,7 +275,7 @@ public class ExpensePanel extends javax.swing.JPanel {
                 .addGap(26, 26, 26))
         );
 
-        panelTabNhapAnh.add(panelNhapAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 10, 590, 590));
+        panelTabNhapAnh.add(panelNhapAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 530, 590));
 
         btnUploadAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/per/finance/icons/iconpicture.png"))); // NOI18N
         btnUploadAnh.setText("HÃY CHỌN ẢNH BẠN ĐÃ MUA");

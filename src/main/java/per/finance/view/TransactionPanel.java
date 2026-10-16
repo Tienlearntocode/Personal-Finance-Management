@@ -81,9 +81,10 @@ public class TransactionPanel extends JPanel {
         }
         int modelRow = table.convertRowIndexToModel(selectedRow);
         int id = (int) tableModel.getValueAt(modelRow, 0);
+        String type = (String) tableModel.getValueAt(modelRow, 2); // Cột Loại: "Chi tiêu" hoặc "Thu nhập"
 
-        if (JOptionPane.showConfirmDialog(this, "Xóa giao dịch ID: " + id + "?", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            if (dao.deleteTransaction(id)) {
+        if (JOptionPane.showConfirmDialog(this, "Xóa giao dịch " + type + " ID: " + id + "?", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (dao.deleteTransaction(id, type)) {
                 JOptionPane.showMessageDialog(this, "Xóa thành công!");
                 refreshTableData();
             } else {
@@ -117,7 +118,7 @@ public class TransactionPanel extends JPanel {
     }
 
     private class TransactionTableModel extends AbstractTableModel {
-        private final String[] columnNames = {"ID", "Ngày", "Loại", "Danh mục", "Số tiền,"};
+        private final String[] columnNames = {"ID", "Ngày", "Loại", "Danh mục", "Ghi chú", "Số tiền", "Ảnh hóa đơn"};
         private List<Transaction> data;
 
         public TransactionTableModel(List<Transaction> data) { this.data = data; }
@@ -133,9 +134,12 @@ public class TransactionPanel extends JPanel {
                 case 1: return t.getDate();
                 case 2: return t.getType();
                 case 3: return t.getCategory();
-                case 4: return t.getAmount();
+                case 4: return t.getNote();
+                case 5: return t.getAmount();
+                case 6: return t.getImagePath() != null ? t.getImagePath() : "Không có";
                 default: return null;
             }
         }
     }
+    
 }

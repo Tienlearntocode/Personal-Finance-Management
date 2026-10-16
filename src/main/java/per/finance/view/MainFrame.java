@@ -71,10 +71,8 @@ public class MainFrame extends JFrame {
         sidebar.add(btnTransaction);
         sidebar.add(btnIncome);
         sidebar.add(btnInvestment);
-
         return sidebar;
     }
-
     public static void main(String[] args) {
         // 1. Cài đặt giao diện FlatLaf trước tiên
         try {
