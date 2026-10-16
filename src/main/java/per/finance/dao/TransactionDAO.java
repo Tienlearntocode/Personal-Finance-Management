@@ -11,15 +11,17 @@ public class TransactionDAO {
 
     public List<Transaction> getAllTransactions() {
         List<Transaction> list = new ArrayList<>();
-        // Truy vấn thêm cột note từ bảng expense
-        String sql = "SELECT id, DATE_FORMAT(expense_date, '%Y-%m-%d') AS trans_date, 'Chi tiêu' AS trans_type, category, note, amount, image_path "
-                   + "FROM expense "
-                   + "ORDER BY expense_date DESC, id DESC";
 
+        // Ghép bản ghi từ cả 2 bảng expense và incomes, sắp xếp theo ngày giảm dần
+        String sql = "SELECT id, DATE_FORMAT(expense_date, '%Y-%m-%d') AS trans_date, 'Chi tiêu' AS trans_type, category, note, amount, image_path "
+           + "FROM expense "
+           + "UNION ALL "
+           + "SELECT income_id AS id, DATE_FORMAT(income_date, '%Y-%m-%d') AS trans_date, 'Thu nhập' AS trans_type, source_name AS category, note, amount, NULL AS image_path "
+           + "FROM Income "
+           + "ORDER BY trans_date DESC, id DESC";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
-
             while (rs.next()) {
                 list.add(new Transaction(
                     rs.getInt("id"),
@@ -37,8 +39,11 @@ public class TransactionDAO {
         return list;
     }
 
-    public boolean deleteTransaction(int id) {
-        String sql = "DELETE FROM expense WHERE id = ?";
+    // Xóa giao dịch: Kiểm tra loại giao dịch hoặc xóa theo ID tương ứng
+    public boolean deleteTransaction(int id, String type) {
+        String tableName = "Thu nhập".equalsIgnoreCase(type) ? "incomes" : "expense";
+        String sql = "DELETE FROM " + tableName + " WHERE id = ?";
+
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -48,4 +53,4 @@ public class TransactionDAO {
             return false;
         }
     }
-}
+}   

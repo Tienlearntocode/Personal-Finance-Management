@@ -81,9 +81,10 @@ public class TransactionPanel extends JPanel {
         }
         int modelRow = table.convertRowIndexToModel(selectedRow);
         int id = (int) tableModel.getValueAt(modelRow, 0);
+        String type = (String) tableModel.getValueAt(modelRow, 2); // Cột Loại: "Chi tiêu" hoặc "Thu nhập"
 
-        if (JOptionPane.showConfirmDialog(this, "Xóa giao dịch ID: " + id + "?", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            if (dao.deleteTransaction(id)) {
+        if (JOptionPane.showConfirmDialog(this, "Xóa giao dịch " + type + " ID: " + id + "?", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (dao.deleteTransaction(id, type)) {
                 JOptionPane.showMessageDialog(this, "Xóa thành công!");
                 refreshTableData();
             } else {
@@ -140,4 +141,5 @@ public class TransactionPanel extends JPanel {
             }
         }
     }
+    
 }
