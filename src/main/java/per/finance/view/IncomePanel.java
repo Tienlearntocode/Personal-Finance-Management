@@ -18,10 +18,10 @@ public class IncomePanel extends javax.swing.JPanel {
         initComponents();
         incomeDAO = new IncomeDAO();
         
-        // Khởi tạo model cho JTable (Giả sử bảng của bạn tên là jTable1)
+        // Khởi tạo model cho JTable
         tableModel = (DefaultTableModel) jTable1.getModel();
         
-        // Gọi hàm tải dữ liệu lên bảng khi vừa mở giao diện
+        // Tải dữ liệu lên bảng khi mở giao diện
         loadTableData();
         
         // Sự kiện click vào dòng trên bảng để đổ dữ liệu lên các ô nhập liệu
@@ -30,7 +30,10 @@ public class IncomePanel extends javax.swing.JPanel {
                 int row = jTable1.getSelectedRow();
                 if (row >= 0) {
                     selectedIncomeId = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
-                    txtSourceName.setText(jTable1.getValueAt(row, 1).toString());
+                    
+                    String sourceName = jTable1.getValueAt(row, 1).toString();
+                    cboSourceName.setSelectedItem(sourceName); // Chọn item tương ứng
+                    
                     txtAmount.setText(jTable1.getValueAt(row, 2).toString());
                     txtDate.setText(jTable1.getValueAt(row, 3).toString());
                     txtCategoryId.setText(jTable1.getValueAt(row, 4).toString());
@@ -60,20 +63,40 @@ public class IncomePanel extends javax.swing.JPanel {
     // Hàm xóa trắng các ô nhập liệu
     private void clearForm() {
         selectedIncomeId = -1;
-        txtSourceName.setText("");
+        cboSourceName.setSelectedIndex(0);
         txtAmount.setText("");
         txtDate.setText("");
-        txtCategoryId.setText("");
+        updateCategoryIdBySource(); // Reset Category ID theo combo box
         txtNote.setText("");
     }
 
+    // Hàm hỗ trợ tự động lấy Mã danh mục theo Nguồn thu
+    private int getCategoryIdFromSource(String sourceName) {
+        switch (sourceName) {
+            case "Lương":
+                return 1;
+            case "Thưởng":
+                return 2;
+            case "Khác":
+            default:
+                return 3;
+        }
+    }
+
+    // Cập nhật giá trị hiển thị trên txtCategoryId
+    private void updateCategoryIdBySource() {
+        String selectedSource = (String) cboSourceName.getSelectedItem();
+        int catId = getCategoryIdFromSource(selectedSource);
+        txtCategoryId.setText(String.valueOf(catId));
+    }
+
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtSourceName = new javax.swing.JTextField();
+        cboSourceName = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         txtAmount = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -89,16 +112,26 @@ public class IncomePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); 
         jLabel1.setText("QUẢN LÝ KHOẢN THU");
 
         jLabel2.setText("Nguồn thu:");
+
+        // Khởi tạo ComboBox với 3 nguồn thu cố định
+        cboSourceName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lương", "Thưởng", "Khác" }));
+        cboSourceName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateCategoryIdBySource();
+            }
+        });
 
         jLabel3.setText("Số tiền:");
 
         jLabel4.setText("Ngày thu (YYYY-MM-DD):");
 
         jLabel5.setText("Mã danh mục (Category ID):");
+
+        txtCategoryId.setEditable(false); // Không cho người dùng sửa tay ID danh mục
 
         jLabel6.setText("Ghi chú:");
 
@@ -131,9 +164,7 @@ public class IncomePanel extends javax.swing.JPanel {
         });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
+            new Object [][] {},
             new String [] {
                 "ID", "Nguồn thu", "Số tiền", "Ngày thu", "Danh mục", "Ghi chú"
             }
@@ -165,7 +196,7 @@ public class IncomePanel extends javax.swing.JPanel {
                             .addComponent(jLabel6))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtSourceName)
+                            .addComponent(cboSourceName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtAmount)
                             .addComponent(txtDate)
                             .addComponent(txtCategoryId)
@@ -193,7 +224,7 @@ public class IncomePanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtSourceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboSourceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -218,15 +249,18 @@ public class IncomePanel extends javax.swing.JPanel {
                             .addComponent(btnClear))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
-    }// </editor-fold>//GEN-END:initComponents
+
+        // Khởi tạo giá trị Category ID mặc định khi load
+        updateCategoryIdBySource();
+    }// </editor-fold>                        
 
     // Sự kiện nút Thêm
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            String sourceName = txtSourceName.getText().trim();
+            String sourceName = cboSourceName.getSelectedItem().toString();
             double amount = Double.parseDouble(txtAmount.getText().trim());
             Date incomeDate = Date.valueOf(txtDate.getText().trim());
-            int categoryId = Integer.parseInt(txtCategoryId.getText().trim());
+            int categoryId = getCategoryIdFromSource(sourceName);
             String note = txtNote.getText().trim();
 
             Income income = new Income(0, sourceName, amount, incomeDate, categoryId, note);
@@ -240,7 +274,7 @@ public class IncomePanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Thêm thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số cho Số tiền và Danh mục!", "Lỗi định dạng", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số cho Số tiền!", "Lỗi định dạng", JOptionPane.WARNING_MESSAGE);
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, "Sai định dạng ngày tháng! Hãy nhập theo chuẩn: YYYY-MM-DD", "Lỗi ngày tháng", JOptionPane.WARNING_MESSAGE);
         }
@@ -253,10 +287,10 @@ public class IncomePanel extends javax.swing.JPanel {
             return;
         }
         try {
-            String sourceName = txtSourceName.getText().trim();
+            String sourceName = cboSourceName.getSelectedItem().toString();
             double amount = Double.parseDouble(txtAmount.getText().trim());
             Date incomeDate = Date.valueOf(txtDate.getText().trim());
-            int categoryId = Integer.parseInt(txtCategoryId.getText().trim());
+            int categoryId = getCategoryIdFromSource(sourceName);
             String note = txtNote.getText().trim();
 
             Income income = new Income(selectedIncomeId, sourceName, amount, incomeDate, categoryId, note);
@@ -299,11 +333,12 @@ public class IncomePanel extends javax.swing.JPanel {
         clearForm();
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cboSourceName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -316,6 +351,5 @@ public class IncomePanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCategoryId;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtNote;
-    private javax.swing.JTextField txtSourceName;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
