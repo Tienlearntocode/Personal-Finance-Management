@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package per.finance.controller;
 
 import per.finance.dao.DashboardDAO;
@@ -10,61 +6,109 @@ import per.finance.view.HomePanel;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-
+import java.util.List;
+import javax.swing.JFrame;
+import per.finance.view.ExpenseChartDialog;
 public class HomeController {
 
     private final HomePanel view;
     private final DashboardDAO dashboardDAO;
     private final DecimalFormat currencyFormatter = new DecimalFormat("#,##0 ₫");
 
-    // 1. Khởi tạo liên kết (Constructor)
     public HomeController(HomePanel view) {
         this.view = view;
-        this.dashboardDAO = new DashboardDAO(); // Khởi tạo đối tượng DashboardDAO
+        this.dashboardDAO = new DashboardDAO();
         
         initController();
     }
 
-    // 3. Đăng ký sự kiện (Event Listeners)
     private void initController() {
-        // Lắng nghe sự kiện thay đổi tháng trên JSpinner
-        if (view.getSpnMonth() != null) {
-            view.getSpnMonth().addChangeListener(e -> loadDashboardData());
+        // Lắng nghe sự kiện thay đổi trên JMonthChooser
+        if (view.getMonthChooser() != null) {
+            view.getMonthChooser().addPropertyChangeListener("month", evt -> loadDashboardData());
         }
 
-        // Lắng nghe sự kiện click nút Làm mới (Refresh) nếu giao diện có nút btnRefresh
+        // Lắng nghe sự kiện thay đổi trên JYearChooser
+        if (view.getYearChooser() != null) {
+            view.getYearChooser().addPropertyChangeListener("year", evt -> loadDashboardData());
+        }
+
+        // Nút làm mới (Nút bình thường mới dùng addActionListener)
         if (view.getBtnRefresh() != null) {
             view.getBtnRefresh().addActionListener(e -> loadDashboardData());
         }
 
-        // Tải dữ liệu ban đầu khi vừa mở màn hình
+        // Gán giá trị mặc định ban đầu là Tháng 10 và Năm 2026
+        if (view.getMonthChooser() != null) {
+            view.getMonthChooser().setMonth(9); // 9 tương ứng với Tháng 10 (tính từ 0)
+        }
+        if (view.getYearChooser() != null) {
+            view.getYearChooser().setYear(2026);
+        }
+
+        // Tải dữ liệu ban đầu
         loadDashboardData();
     }
 
-    // 2. Hàm tải dữ liệu (loadDashboardData)
     public void loadDashboardData() {
-        // Lấy tháng từ JSpinner trên giao diện (hoặc mặc định lấy tháng hiện tại nếu chưa chọn)
         int selectedMonth = LocalDate.now().getMonthValue();
-        if (view.getSpnMonth() != null) {
-            selectedMonth = (int) view.getSpnMonth().getValue();
+        int selectedYear = LocalDate.now().getYear();
+
+        if (view.getMonthChooser() != null) {
+            selectedMonth = view.getMonthChooser().getMonth() + 1; 
         }
-        int currentYear = LocalDate.now().getYear();
+        if (view.getYearChooser() != null) {
+            selectedYear = view.getYearChooser().getYear();
+        }
 
-        // Gọi DashboardDAO lấy đối tượng MonthlySummary chứa tổng thu, tổng chi, số dư
-        MonthlySummary summary = dashboardDAO.getMonthlySummary(selectedMonth, currentYear);
+        // 1. Lấy tổng thu, tổng chi
+        MonthlySummary summary = dashboardDAO.getMonthlySummary(selectedMonth, selectedYear);
 
-        // Cập nhật trực tiếp lên các nhãn (JLabel) hiển thị trên HomePanel
+        // Hiển thị tổng chi tiêu & tổng thu nhập
         if (view.getLblExpenseAmount() != null) {
             view.getLblExpenseAmount().setText(currencyFormatter.format(summary.getTotalExpense()));
         }
-
         if (view.getLblIncomeAmount() != null) {
             view.getLblIncomeAmount().setText(currencyFormatter.format(summary.getTotalIncome()));
         }
-
-        // Nếu giao diện có nhãn hiển thị Số dư (netBalance)
         if (view.getLblNetBalance() != null) {
             view.getLblNetBalance().setText(currencyFormatter.format(summary.getNetBalance()));
+        }
+
+        // 2. Lấy dữ liệu danh mục chi tiêu và đổ vào JTable của HomePanel
+        List<DashboardDAO.CategorySummary> categoryList = dashboardDAO.getCategorySummaryByMonth(selectedMonth, selectedYear);
+        
+        // Giả sử bảng trên HomePanel có tên getter là getTblCategory() hoặc getTableCategory()
+        // Bạn kiểm tra tên hàm get Table trong HomePanel của bạn (ví dụ: view.getTblCategory())
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) view.getTblCategory().getModel();
+        model.setRowCount(0); // Xóa dữ liệu cũ trên bảng
+
+        java.text.DecimalFormat percentFormatter = new java.text.DecimalFormat("#0.1'% '");
+
+        for (DashboardDAO.CategorySummary cat : categoryList) {
+            Object[] row = new Object[] {
+                cat.getCategoryName(),
+                currencyFormatter.format(cat.getTotalAmount()),
+                percentFormatter.format(cat.percentage())
+            };
+            model.addRow(row);
+        }
+        // Thêm đoạn này vào trong hàm initController() của HomeController.java:
+        if (view.getBtnViewChart() != null) {
+            view.getBtnViewChart().addActionListener(e -> {
+                int month = view.getMonthChooser().getMonth() + 1;
+                int year = view.getYearChooser().getYear();
+
+                // Lấy danh sách danh mục chi tiêu của tháng/năm đó
+                List<DashboardDAO.CategorySummary> list = dashboardDAO.getCategorySummaryByMonth(month, year);
+
+                // Tìm JFrame chứa HomePanel để làm parent cho Dialog
+                JFrame parentFrame = (JFrame ) javax.swing.SwingUtilities.getWindowAncestor(view);
+
+                // Mở cửa sổ biểu đồ
+                ExpenseChartDialog chartDialog = new ExpenseChartDialog(parentFrame, list, month, year);
+                chartDialog.setVisible(true);
+            });
         }
     }
 }
