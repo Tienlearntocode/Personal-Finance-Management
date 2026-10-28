@@ -22,7 +22,7 @@ public class ExpenseController {
         if(strAmount==null || strAmount.trim().isEmpty()){
             return "Vui lòng nhập lại tiền!";
         }
-        
+
         double amount;
         try {
             amount=Double.parseDouble(strAmount.trim());
@@ -44,5 +44,10 @@ public class ExpenseController {
         }
         return "OK";
     }
+
+    public ExpenseController(ExpenseDAO expenseDAO) {
+        this.expenseDAO = expenseDAO;
+    }
+    
     
 }
