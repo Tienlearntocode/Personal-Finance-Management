@@ -7,8 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +22,7 @@ public class IncomeDAO {
             pstmt.setString(1, income.getSourceName());
             pstmt.setDouble(2, income.getAmount());
             
-            if (income.getIncomeDate() != null) {
-                pstmt.setDate(3, income.getIncomeDate());
-            } else {
-                pstmt.setDate(3, new Date(System.currentTimeMillis()));
-            }
+            pstmt.setDate(3, income.getIncomeDate());
             
             pstmt.setInt(4, income.getCategoryId());
             pstmt.setString(5, income.getNote());
@@ -44,11 +38,12 @@ public class IncomeDAO {
     // 2. Lấy danh sách toàn bộ khoản thu để đổ lên JTable
     public List<Income> getAllIncomes() {
         List<Income> list = new ArrayList<>();
-        String sql = "SELECT * FROM Income";
+        String sql = "SELECT income_id, source_name, amount, income_date, category_id, note "
+                   + "FROM Income ORDER BY income_date DESC, income_id DESC";
         
         try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             
             while (rs.next()) {
                 Income income = new Income(
@@ -77,11 +72,7 @@ public class IncomeDAO {
             pstmt.setString(1, income.getSourceName());
             pstmt.setDouble(2, income.getAmount());
             
-            if (income.getIncomeDate() != null) {
-                pstmt.setDate(3, income.getIncomeDate());
-            } else {
-                pstmt.setDate(3, new Date(System.currentTimeMillis()));
-            }
+            pstmt.setDate(3, income.getIncomeDate());
             
             pstmt.setInt(4, income.getCategoryId());
             pstmt.setString(5, income.getNote());

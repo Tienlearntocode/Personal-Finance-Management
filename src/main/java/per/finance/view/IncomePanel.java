@@ -1,22 +1,20 @@
 package per.finance.view;
 
-import per.finance.dao.IncomeDAO;
+import per.finance.controller.IncomeController;
 import per.finance.model.Income;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.sql.Date;
 import java.util.List;
 
 public class IncomePanel extends javax.swing.JPanel {
 
-    private IncomeDAO incomeDAO;
+    private final IncomeController controller = new IncomeController();
     private DefaultTableModel tableModel;
     private int selectedIncomeId = -1; // Lưu ID của dòng đang chọn để Sửa/Xóa
 
     public IncomePanel() {
         initComponents();
-        incomeDAO = new IncomeDAO();
         
         // Khởi tạo model cho JTable
         tableModel = (DefaultTableModel) jTable1.getModel();
@@ -46,7 +44,7 @@ public class IncomePanel extends javax.swing.JPanel {
     // Hàm load dữ liệu từ MySQL lên JTable
     public void loadTableData() {
         tableModel.setRowCount(0); // Xóa dữ liệu cũ
-        List<Income> list = incomeDAO.getAllIncomes();
+        List<Income> list = controller.getAllIncomes();
         for (Income inc : list) {
             Object[] row = {
                 inc.getIncomeId(),
@@ -70,23 +68,10 @@ public class IncomePanel extends javax.swing.JPanel {
         txtNote.setText("");
     }
 
-    // Hàm hỗ trợ tự động lấy Mã danh mục theo Nguồn thu
-    private int getCategoryIdFromSource(String sourceName) {
-        switch (sourceName) {
-            case "Lương":
-                return 1;
-            case "Thưởng":
-                return 2;
-            case "Khác":
-            default:
-                return 3;
-        }
-    }
-
     // Cập nhật giá trị hiển thị trên txtCategoryId
     private void updateCategoryIdBySource() {
         String selectedSource = (String) cboSourceName.getSelectedItem();
-        int catId = getCategoryIdFromSource(selectedSource);
+        int catId = controller.getCategoryIdFromSource(selectedSource);
         txtCategoryId.setText(String.valueOf(catId));
     }
 
@@ -256,27 +241,18 @@ public class IncomePanel extends javax.swing.JPanel {
 
     // Sự kiện nút Thêm
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            String sourceName = cboSourceName.getSelectedItem().toString();
-            double amount = Double.parseDouble(txtAmount.getText().trim());
-            Date incomeDate = Date.valueOf(txtDate.getText().trim());
-            int categoryId = getCategoryIdFromSource(sourceName);
-            String note = txtNote.getText().trim();
+        String result = controller.addIncome(
+                (String) cboSourceName.getSelectedItem(),
+                txtAmount.getText(),
+                txtDate.getText(),
+                txtNote.getText());
 
-            Income income = new Income(0, sourceName, amount, incomeDate, categoryId, note);
-            boolean success = incomeDAO.addIncome(income);
-
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Thêm khoản thu thành công!");
-                loadTableData();
-                clearForm();
-            } else {
-                JOptionPane.showMessageDialog(this, "Thêm thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số cho Số tiền!", "Lỗi định dạng", JOptionPane.WARNING_MESSAGE);
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(this, "Sai định dạng ngày tháng! Hãy nhập theo chuẩn: YYYY-MM-DD", "Lỗi ngày tháng", JOptionPane.WARNING_MESSAGE);
+        if (IncomeController.SUCCESS.equals(result)) {
+            JOptionPane.showMessageDialog(this, "Thêm khoản thu thành công!");
+            loadTableData();
+            clearForm();
+        } else {
+            JOptionPane.showMessageDialog(this, result, "Lỗi", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -286,25 +262,19 @@ public class IncomePanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần sửa trên bảng!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        try {
-            String sourceName = cboSourceName.getSelectedItem().toString();
-            double amount = Double.parseDouble(txtAmount.getText().trim());
-            Date incomeDate = Date.valueOf(txtDate.getText().trim());
-            int categoryId = getCategoryIdFromSource(sourceName);
-            String note = txtNote.getText().trim();
+        String result = controller.updateIncome(
+                selectedIncomeId,
+                (String) cboSourceName.getSelectedItem(),
+                txtAmount.getText(),
+                txtDate.getText(),
+                txtNote.getText());
 
-            Income income = new Income(selectedIncomeId, sourceName, amount, incomeDate, categoryId, note);
-            boolean success = incomeDAO.updateIncome(income);
-
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Cập nhật khoản thu thành công!");
-                loadTableData();
-                clearForm();
-            } else {
-                JOptionPane.showMessageDialog(this, "Cập nhật thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi nhập liệu: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        if (IncomeController.SUCCESS.equals(result)) {
+            JOptionPane.showMessageDialog(this, "Cập nhật khoản thu thành công!");
+            loadTableData();
+            clearForm();
+        } else {
+            JOptionPane.showMessageDialog(this, result, "Lỗi", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -317,13 +287,13 @@ public class IncomePanel extends javax.swing.JPanel {
 
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa khoản thu này không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            boolean success = incomeDAO.deleteIncome(selectedIncomeId);
-            if (success) {
+            String result = controller.deleteIncome(selectedIncomeId);
+            if (IncomeController.SUCCESS.equals(result)) {
                 JOptionPane.showMessageDialog(this, "Xóa thành công!");
                 loadTableData();
                 clearForm();
             } else {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, result, "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
