@@ -1,6 +1,6 @@
 package per.finance.view;
 
-import per.finance.controller.FinanceController;
+import per.finance.controller.InvestmentController;
 import per.finance.model.Investment;
 
 import javax.swing.*;
@@ -13,10 +13,10 @@ import java.util.List;
 public class InvestmentPanel extends JPanel {
     private JTable table;
     private DefaultTableModel tableModel;
-    private FinanceController controller;
+    private InvestmentController controller;
 
     public InvestmentPanel() {
-        controller = new FinanceController();
+        controller = new InvestmentController();
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
