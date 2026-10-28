@@ -18,7 +18,12 @@ public abstract class BaseDAO {
      * Lấy kết nối tới CSDL từ DatabaseConnection
      */
     protected Connection getConnection() throws SQLException {
-        return DatabaseConnection.getConnection();
+        Connection conn = DatabaseConnection.getConnection();
+        if (conn == null) {
+            // DatabaseConnection trả về null khi kết nối lỗi; báo lỗi rõ ràng thay vì để NullPointerException
+            throw new SQLException("Không kết nối được cơ sở dữ liệu");
+        }
+        return conn;
     }
 
     /**

@@ -16,6 +16,10 @@ public class HomePanel extends javax.swing.JPanel {
         // Tăng chiều cao mỗi hàng để dễ đọc
         tblCategory.setRowHeight(32);
         
+        // Bảng chỉ để xem, không cho sửa trực tiếp trên ô
+        tblCategory.setDefaultEditor(Object.class, null);
+        tblCategory.setDefaultEditor(Number.class, null);
+        
         monthChooser = new com.toedter.calendar.JMonthChooser();
         yearChooser = new com.toedter.calendar.JYearChooser();
 
@@ -33,7 +37,9 @@ public class HomePanel extends javax.swing.JPanel {
         panelFilter.revalidate();
         panelFilter.repaint();
         
-        new per.finance.controller.HomeController(this); 
+        
+        // Thêm nhãn "Số dư" phía trên nút "Xem biểu đồ"
+        setupNetBalanceLabel();
         
         tblCategory.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
         tblCategory.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
@@ -43,6 +49,36 @@ public class HomePanel extends javax.swing.JPanel {
         rightRenderer.setHorizontalAlignment(javax.swing.JLabel.RIGHT);
         tblCategory.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
         tblCategory.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+        // Controller được tạo sau cùng, khi giao diện đã sẵn sàng
+        controller= new per.finance.controller.HomeController(this); 
+    
+        // Mỗi khi trang Home hiện lại (ví dụ quay về từ tab khác), tải lại số liệu mới nhất
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & java.awt.event.HierarchyEvent.SHOWING_CHANGED) != 0 && isShowing()) {
+                controller.loadDashboardData();
+            }
+        });
+    }
+    private void setupNetBalanceLabel() {
+        javax.swing.JLabel lblNetTitle = new javax.swing.JLabel("Số dư (thu - chi)");
+        lblNetTitle.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+
+        lblNetBalance = new javax.swing.JLabel("0 ₫");
+        lblNetBalance.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 22));
+        lblNetBalance.setForeground(new java.awt.Color(51, 51, 51));
+
+        lblNetTitle.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        lblNetBalance.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        btnViewChart.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        panelChart.removeAll();
+        panelChart.setLayout(new javax.swing.BoxLayout(panelChart, javax.swing.BoxLayout.PAGE_AXIS));
+        panelChart.add(lblNetTitle);
+        panelChart.add(lblNetBalance);
+        panelChart.add(javax.swing.Box.createVerticalStrut(8));
+        panelChart.add(btnViewChart);
+        panelChart.revalidate();
+        panelChart.repaint();
     }
 
     /**
@@ -257,8 +293,7 @@ public class HomePanel extends javax.swing.JPanel {
     }
 
     public javax.swing.JLabel getLblNetBalance() {
-        // Nếu có nhãn lblNetBalance thì return lblNetBalance; ngược lại để return null;
-        return null; 
+      return lblNetBalance;
     }
     public com.toedter.calendar.JMonthChooser getMonthChooser() {
         return monthChooser;
@@ -276,6 +311,8 @@ public class HomePanel extends javax.swing.JPanel {
     // Khai báo thủ công JCalendar component
     private com.toedter.calendar.JMonthChooser monthChooser;
     private com.toedter.calendar.JYearChooser yearChooser;
+    private javax.swing.JLabel lblNetBalance;
+    private per.finance.controller.HomeController controller;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnViewChart;
     private javax.swing.JLabel jLabel1;
