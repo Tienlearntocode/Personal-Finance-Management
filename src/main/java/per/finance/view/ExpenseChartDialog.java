@@ -9,7 +9,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
-import per.finance.dao.DashboardDAO;
+import per.finance.model.CategorySummary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ExpenseChartDialog extends JDialog {
 
-    public ExpenseChartDialog(Frame parent, List<DashboardDAO.CategorySummary> categoryList, int month, int year) {
+    public ExpenseChartDialog(Frame parent, List<CategorySummary> categoryList, int month, int year) {
         super(parent, "Biểu Đồ Phân Bổ Chi Tiêu - Tháng " + month + "/" + year, true);
         setSize(700, 500);
         setLocationRelativeTo(parent);
@@ -25,7 +25,7 @@ public class ExpenseChartDialog extends JDialog {
 
         // Tạo dữ liệu cho biểu đồ tròn
         DefaultPieDataset dataset = new DefaultPieDataset();
-        for (DashboardDAO.CategorySummary cat : categoryList) {
+        for (CategorySummary cat : categoryList) {
             if (cat.getTotalAmount() > 0) {
                 dataset.setValue(cat.getCategoryName(), cat.getTotalAmount());
             }
