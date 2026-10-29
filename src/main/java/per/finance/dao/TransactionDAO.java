@@ -8,27 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionDAO {
-    // Lấy danh sách giao dịch từ MySQL
+
     public List<Transaction> getAllTransactions() {
         List<Transaction> list = new ArrayList<>();
-        String sql ="SELECT id, DATE_FORMAT(expense_date, '%Y-%m-%d') AS trans_date, 'Chi tiêu' AS trans_type, category, note, amount, image_path "
+
+        // Ghép bản ghi từ cả 2 bảng expense và incomes, sắp xếp theo ngày giảm dần
+        String sql = "SELECT id, DATE_FORMAT(expense_date, '%Y-%m-%d') AS trans_date, 'Chi tiêu' AS trans_type, category, note, amount, image_path "
            + "FROM expense "
            + "UNION ALL "
            + "SELECT income_id AS id, DATE_FORMAT(income_date, '%Y-%m-%d') AS trans_date, 'Thu nhập' AS trans_type, source_name AS category, note, amount, NULL AS image_path "
            + "FROM Income "
            + "ORDER BY trans_date DESC, id DESC";
-        
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
-
             while (rs.next()) {
                 list.add(new Transaction(
                     rs.getInt("id"),
-                    rs.getString("date"),
-                    rs.getString("type"),
+                    rs.getString("trans_date"),
+                    rs.getString("trans_type"),
                     rs.getString("category"),
-                    rs.getDouble("amount")
+                    rs.getString("note") != null ? rs.getString("note") : "",
+                    rs.getDouble("amount"),
+                    rs.getString("image_path")
                 ));
             }
         } catch (SQLException e) {
@@ -37,14 +39,11 @@ public class TransactionDAO {
         return list;
     }
 
-    // Xóa giao dịch theo ID
+    // Xóa giao dịch: Kiểm tra loại giao dịch hoặc xóa theo ID tương ứng
     public boolean deleteTransaction(int id, String type) {
-        String sql;
-        if ("Thu nhập".equalsIgnoreCase(type)) {
-            sql = "DELETE FROM Income WHERE income_id = ?";
-        } else {
-            sql = "DELETE FROM expense WHERE id = ?";
-        }
+        String tableName = "Thu nhập".equalsIgnoreCase(type) ? "incomes" : "expense";
+        String sql = "DELETE FROM " + tableName + " WHERE id = ?";
+
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -54,4 +53,4 @@ public class TransactionDAO {
             return false;
         }
     }
-}
+}   

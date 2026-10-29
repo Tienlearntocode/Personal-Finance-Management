@@ -22,7 +22,7 @@ public class ExpenseController {
         if(strAmount==null || strAmount.trim().isEmpty()){
             return "Vui lòng nhập lại tiền!";
         }
-        
+
         double amount;
         try {
             amount=Double.parseDouble(strAmount.trim());
@@ -37,12 +37,17 @@ public class ExpenseController {
            return "vui lòng chọn ngày";
         }
         java.sql.Date sqldate = new java.sql.Date(date.getTime());
-        Expense exp= new Expense(amount, category, note, sqldate, null);
+        Expense exp= new Expense(amount, category, note, sqldate, imagePath);
         int newid= ExpenseDAO.insert(exp);
         if(newid<=0){
             return"DỮ LIỆU KHÔNG LƯU ĐƯỢC!!!!!!!!!";
         }
         return "OK";
     }
+
+    public ExpenseController(ExpenseDAO expenseDAO) {
+        this.expenseDAO = expenseDAO;
+    }
+    
     
 }

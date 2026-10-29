@@ -6,27 +6,37 @@ package per.finance.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
-/**
- *
- * @author haphong
- */
+import java.sql.SQLException;
 public class DatabaseConnection {
+    
+private static final String URL = "jdbc:mysql://localhost:3306/personal_finance?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+private static final String USER = "root";
+private static final String PASSWORD = "123456"; 
 
-    private static final String HOST_NAME="localhost";
-    private static final String DB_NAME="personal_finance";
-    private static final String user="root";
-    private static final String PASSWORD="mysql";
-    private static final String url="jdbc:mysql://"+HOST_NAME+":3306/"+DB_NAME+"?useSSL=false&serverTimezone=UTC";
-    public static Connection getConnection(){
-        Connection conn=null;
+    public static Connection getConnection() {
+        Connection conn = null;
         try {
+            // Nạp JDBC Driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn=DriverManager.getConnection(url, user, PASSWORD);
-        } catch (Exception e) {
+            // Mở kết nối
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Chưa nạp được Driver MySQL!");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Kết nối thất bại! Kiểm tra lại URL, User hoặc Password.");
             e.printStackTrace();
         }
         return conn;
     }
-    
+
+    // Hàm main để test thử kết nối trực tiếp
+    public static void main(String[] args) {
+        Connection c = getConnection();
+        if (c != null) {
+            System.out.println("-> Kết nối MySQL thành công!");
+        } else {
+            System.out.println("-> Kết nối thất bại!");
+        }
+    }
 }

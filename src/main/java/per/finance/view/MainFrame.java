@@ -71,11 +71,19 @@ public class MainFrame extends JFrame {
         sidebar.add(btnTransaction);
         sidebar.add(btnIncome);
         sidebar.add(btnInvestment);
-
         return sidebar;
     }
-
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
+        // 1. Cài đặt giao diện FlatLaf trước tiên
+        try {
+            com.formdev.flatlaf.FlatLightLaf.setup();
+        } catch (Exception ex) {
+            System.err.println("Không thể khởi động FlatLaf: " + ex.getMessage());
+        }
+
+        // 2. Chỉ khởi chạy MainFrame đúng 1 lần duy nhất
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainFrame().setVisible(true);
+        });
     }
 }
