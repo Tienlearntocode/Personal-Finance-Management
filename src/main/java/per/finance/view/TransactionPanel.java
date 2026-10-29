@@ -59,8 +59,16 @@ public class TransactionPanel extends JPanel {
         add(topPanel, BorderLayout.NORTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
+        
+        // Mỗi khi màn hình hiện lại (ví dụ quay về từ tab khác), tải lại bảng cho khớp CSDL
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & java.awt.event.HierarchyEvent.SHOWING_CHANGED) != 0 && isShowing()) {
+                refreshTableData();
+            }
+        });
+    
     }
-
+    
     private void loadDataToTable() {
         List<Transaction> list = dao.getAllTransactions();
         tableModel = new TransactionTableModel(list);

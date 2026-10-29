@@ -91,6 +91,13 @@ public class InvestmentPanel extends JPanel {
         btnRefresh.addActionListener(e -> loadData());
 
         loadData();
+        
+        // Mỗi khi màn hình hiện lại (ví dụ quay về từ tab khác), tải lại bảng cho khớp CSDL
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & java.awt.event.HierarchyEvent.SHOWING_CHANGED) != 0 && isShowing()) {
+                loadData();
+            }
+        });
     }
 
     // ==================== TẢI DỮ LIỆU ====================
@@ -418,5 +425,9 @@ public class InvestmentPanel extends JPanel {
             new InvestmentChartDialog(parentFrame, list);
 
         chartDialog.setVisible(true);
+    }
+    private Frame getParentFrame() {
+        Window window = SwingUtilities.getWindowAncestor(this);
+        return (window instanceof Frame) ? (Frame) window : null;
     }
 }

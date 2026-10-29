@@ -18,7 +18,7 @@ public class TransactionController {
 
     // Xử lý nghiệp vụ xóa giao dịch (hỗ trợ phân biệt loại thu/chi)
     public boolean deleteTransaction(int id, String type) {
-            if (id <= 0 || type == null||type.trim().isEmpty()) { 
+        if (id <= 0 || type == null||type.trim().isEmpty()) { 
             return false;
         }
         return transactionDAO.deleteTransaction(id, type);

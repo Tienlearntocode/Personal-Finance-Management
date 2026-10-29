@@ -39,8 +39,16 @@ public class IncomePanel extends javax.swing.JPanel {
                 }
             }
         });
+        // Mỗi khi màn hình hiện lại (ví dụ quay về từ tab khác), tải lại bảng cho khớp CSDL
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & java.awt.event.HierarchyEvent.SHOWING_CHANGED) != 0 && isShowing()) {
+                loadTableData();
+                clearForm(); // bỏ dòng đang chọn cũ, tránh sửa/xóa nhầm bản ghi không còn tồn tại
+            }
+        });
+    
     }
-
+    
     // Hàm load dữ liệu từ MySQL lên JTable
     public void loadTableData() {
         tableModel.setRowCount(0); // Xóa dữ liệu cũ

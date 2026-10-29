@@ -41,9 +41,12 @@ public class TransactionDAO {
 
     // Xóa giao dịch: Kiểm tra loại giao dịch hoặc xóa theo ID tương ứng
     public boolean deleteTransaction(int id, String type) {
-        String tableName = "Thu nhập".equalsIgnoreCase(type) ? "incomes" : "expense";
-        String sql = "DELETE FROM " + tableName + " WHERE id = ?";
-
+        String sql;
+        if ("Thu nhập".equalsIgnoreCase(type)) {
+            sql = "DELETE FROM Income WHERE income_id = ?";
+        } else {
+            sql = "DELETE FROM expense WHERE id = ?";
+        }
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
