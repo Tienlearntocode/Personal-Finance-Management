@@ -286,11 +286,6 @@ public class HomePanel extends javax.swing.JPanel {
         return lblIncomeAmount; // Trả về nhãn Tổng Thu Nhập
     }
 
-    // Nếu giao diện BẠN CHƯA CÓ các component này, trả về null để tránh lỗi crash:
-    public javax.swing.JButton getBtnRefresh() {
-        // Nếu có nút btnRefresh thì return btnRefresh; ngược lại để return null;
-        return null; 
-    }
 
     public javax.swing.JLabel getLblNetBalance() {
       return lblNetBalance;
